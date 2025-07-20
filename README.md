@@ -49,17 +49,5 @@ fastapi dev main.py
     - Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
     - ReDoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
-## Project Structure
-```
-Project/
-├── main.py             # Entry point of the application
-├── routes/             # API route definitions
-├── schemas.py          # Pydantic models for data validation
-├── db.py               # Database connection setup
-├── queries.py          # SQL queries
-├── requirements.txt    # Python dependencies
-└── .gitignore          # Ignored files and directories
-```
-
 ## License
 This project is licensed under the MIT License.
