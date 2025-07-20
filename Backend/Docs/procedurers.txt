@@ -1,0 +1,113 @@
+
+
+
+------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------
+
+--Stored Procedure: InsertInterviewSchedule
+
+
+DELIMITER //
+
+CREATE PROCEDURE InsertInterviewSchedule (
+    IN p_ApplicationID INT,
+    IN p_Interview_Time TIME,
+    IN p_Mode VARCHAR(50),
+    IN p_Platform VARCHAR(100),
+    IN p_Interview_Link VARCHAR(255)
+)
+BEGIN
+    DECLARE v_Interview_ID INT;
+    DECLARE v_Job_ID INT;
+    DECLARE id_exists INT DEFAULT 1;
+
+    -- Step 1: Check if application exists and get Job_ID
+    SELECT Job_ID INTO v_Job_ID
+    FROM Application
+    WHERE Application_ID = p_ApplicationID;
+
+    -- Step 2: Generate a unique Interview_ID
+    WHILE id_exists = 1 DO
+        SET v_Interview_ID = FLOOR(100000 + (RAND() * 900000)); -- 6-digit random ID
+        SELECT COUNT(*) INTO id_exists
+        FROM Interview_Schedule
+        WHERE Interview_ID = v_Interview_ID;
+    END WHILE;
+
+    -- Step 3: Insert into Interview_Schedule with NULL date
+    INSERT INTO Interview_Schedule (
+        Interview_ID, Job_ID, Interview_Date,
+        Interview_Time, Mode, Platform, Interview_Link
+    ) VALUES (
+        v_Interview_ID, v_Job_ID, NULL,
+        p_Interview_Time, p_Mode, p_Platform, p_Interview_Link
+    );
+
+    -- Step 4: Update Application table to link this interview
+    UPDATE Application
+    SET Interview_Schedule = v_Interview_ID
+    WHERE Application_ID = p_ApplicationID;
+END //
+
+DELIMITER ;
+
+-------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------
+
+--
+
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------------
