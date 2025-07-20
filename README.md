@@ -1,4 +1,4 @@
-# Stride - The Placement Management System API
+# Job Growth Hub - The Placement Management System
 
 This project is a FastAPI-based backend for managing placements, jobs, companies, and students.
 
@@ -62,4 +62,4 @@ Project/
 ```
 
 ## License
-This project is licensed under the MIT License.  
+This project is licensed under the MIT License.
